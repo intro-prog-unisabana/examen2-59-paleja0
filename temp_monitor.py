@@ -11,7 +11,7 @@ def init(max_readings):
     return {
         'max': max_readings,
         'readings': [],
-        'total': 0.0
+        'total': 0.1
     }
 
 def add_reading(monitor, temp):
