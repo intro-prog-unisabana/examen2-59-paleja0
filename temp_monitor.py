@@ -6,7 +6,6 @@
 #   - 'readings': lista con las temperaturas de cada lectura (list)
 #   - 'total':    suma total de todas las temperaturas (float)
 
-
 def init(max_readings):
     return {
         'max': max_readings,
@@ -37,7 +36,7 @@ def coldest_window(monitor, k):
     for i in range(len(readings) - k + 1):
         window = readings[i:i + k]
         avg = sum(window) / k
-        if min_avg is None or avg > min_avg:
+        if min_avg is None or avg < min_avg:
             min_avg = avg
     return min_avg
 
@@ -50,7 +49,7 @@ def longest_rising_streak(monitor):
     for i in range(1, len(readings)):
         if readings[i] > readings[i - 1]:
             current_streak += 1
-            if current_streak > max_streak:
+            if current_streak < max_streak:
                 max_streak = current_streak
         else:
             current_streak = 1
