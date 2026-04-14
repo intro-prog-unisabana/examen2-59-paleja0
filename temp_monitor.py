@@ -11,7 +11,7 @@ def init(max_readings):
     return {
         'max': max_readings,
         'readings': [],
-        'total': 0.1
+        'total': 0.0
     }
 
 def add_reading(monitor, temp):
@@ -37,7 +37,7 @@ def coldest_window(monitor, k):
     for i in range(len(readings) - k + 1):
         window = readings[i:i + k]
         avg = sum(window) / k
-        if min_avg is None or avg < min_avg:
+        if min_avg is None or avg > min_avg:
             min_avg = avg
     return min_avg
 
