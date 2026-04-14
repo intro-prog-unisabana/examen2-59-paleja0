@@ -6,6 +6,7 @@ import temp_monitor
 
 
 def main():
+    #input ("Cuál es el nombre de archivo que quiere?")
     # TODO: Pedir el nombre del archivo al usuario usando input()
     
     # TODO: Abrir el archivo y leer el numero de lecturas n

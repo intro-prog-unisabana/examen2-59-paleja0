@@ -8,71 +8,53 @@
 
 
 def init(max_readings):
-    """
-    Crea y retorna un diccionario para almacenar hasta max_readings lecturas.
-    """
-    # TODO: Implementar
-    pass
-
+    return {
+        'max': max_readings,
+        'readings': [],
+        'total': 0.0
+    }
 
 def add_reading(monitor, temp):
-    """
-    Agrega una nueva lectura con la temperatura especificada.
-    Retorna el diccionario modificado.
-    """
-    # TODO: Implementar
-    pass
-
+    monitor['readings'].append(temp)
+    monitor['total'] += temp
+    return monitor
 
 def count(monitor):
-    """
-    Retorna el numero de lecturas agregadas.
-    """
-    # TODO: Implementar
-    pass
-
+    return len(monitor['readings'])
 
 def average_temp(monitor):
-    """
-    Retorna la temperatura promedio de todas las lecturas.
-    """
-    # TODO: Implementar
-    pass
-
+    return monitor['total'] / count(monitor)
 
 def format_readings(monitor):
-    """
-    Retorna una representacion en cadena de las temperaturas.
-    Formato: [t1, t2, t3, ..., tn]
-    """
-    # TODO: Implementar
-    pass
-
+    return str(monitor['readings'])
 
 def highest_temp(monitor):
-    """
-    Retorna la temperatura mas alta de cualquier lectura.
-    """
-    # TODO: Implementar
-    pass
-
+    return max(monitor['readings'])
 
 def coldest_window(monitor, k):
-    """
-    Retorna el promedio mas bajo de cualquier k lecturas consecutivas.
-    """
-    # TODO: Implementar
-    pass
-
+    readings = monitor['readings']
+    min_avg = None
+    for i in range(len(readings) - k + 1):
+        window = readings[i:i + k]
+        avg = sum(window) / k
+        if min_avg is None or avg < min_avg:
+            min_avg = avg
+    return min_avg
 
 def longest_rising_streak(monitor):
-    """
-    Retorna la longitud maxima de una secuencia de lecturas consecutivas
-    donde las temperaturas aumentan estrictamente.
-    """
-    # TODO: Implementar
-    pass
-
+    readings = monitor['readings']
+    if len(readings) == 0:
+        return 0
+    max_streak = 1
+    current_streak = 1
+    for i in range(1, len(readings)):
+        if readings[i] > readings[i - 1]:
+            current_streak += 1
+            if current_streak > max_streak:
+                max_streak = current_streak
+        else:
+            current_streak = 1
+    return max_streak
 
 def main():
     # crear un monitor para temperaturas de Bogota (12 horas, 6am-5pm)
@@ -91,15 +73,14 @@ def main():
     monitor = add_reading(monitor, 15.0)  # 5pm
 
     # imprimir estadisticas
-    print("numero de lecturas =", count(monitor))               # 12
-    print("temp promedio =", average_temp(monitor))             # 15.208...
-    print("temp mas alta =", highest_temp(monitor))             # 20.0
-    print("ventana mas fria (3) =", coldest_window(monitor, 3)) # 9.5
-    print("racha creciente =", longest_rising_streak(monitor))  # 8
+    print("numero de lecturas =", count(monitor))          # 12
+    print("temp promedio =", average_temp(monitor))        # 15.208...
+    print("temp mas alta =", highest_temp(monitor))        # 20.0
+    print("ventana mas fria (3) =", coldest_window(monitor, 3))  # 9.5
+    print("racha creciente =", longest_rising_streak(monitor))   # 8
 
     # imprimir temperaturas
     print(format_readings(monitor))
-
 
 if __name__ == "__main__":
     main()
